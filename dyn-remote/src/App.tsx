@@ -1,14 +1,12 @@
-// import { useState } from "react";
+import { useState } from "react";
 
-function App() {
-  // const [count, setCount] = useState(0);
-
+const App = () => {
+  const [count, setCount] = useState(0);
   return (
-    // <button onClick={() => setCount((count) => count + 1)}>
-    //   Dynamic remote {count}
-    // </button>
-    <button>Hello from the dynamic remote!</button>
+    <button onClick={() => setCount(count + 1)}>
+      Hello from the dynamic remote! The count is: {count}
+    </button>
   );
-}
+};
 
 export default App;

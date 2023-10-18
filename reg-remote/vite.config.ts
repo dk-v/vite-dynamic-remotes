@@ -7,17 +7,16 @@ export default defineConfig({
   plugins: [
     react(),
     federation({
-      name: "shell",
-      remotes: {
-        // dyn: "http://localhost:4201/assets/remoteEntry.js",
-        // reg: "http://localhost:4202/assets/remoteEntry.js",
-        // dyn: "",
+      name: "reg",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./RegularApp": "./src/App",
       },
       shared: ["react", "react-dom"],
     }),
   ],
   server: {
-    port: 4200,
+    port: 4202,
   },
   build: {
     target: "esnext",

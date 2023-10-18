@@ -1,6 +1,7 @@
-import React, { Suspense, useEffect, useState } from "react";
-import ReactDOM from "react-dom";
-import DynWrapper from "./DynWrapper";
+import React from "react";
+import { FunctionComponent, Suspense, useEffect, useState } from "react";
+// import DynWrapper from "./DynWrapper";
+
 import {
   __federation_method_setRemote,
   __federation_method_getRemote,
@@ -10,64 +11,57 @@ import {
 function App() {
   const [count, setCount] = useState(0);
 
-  // @ts-expect-error temp module definition
   // const DynApp = React.lazy(() => import("dyn/DynamicApp"));
   // const RegApp = React.lazy(() => import("reg/RegularApp"));
-  __federation_method_setRemote("dyn", {
-    url: () => Promise.resolve("http://localhost:4201/assets/remoteEntry.js"),
-    format: "esm",
-    from: "vite",
-  });
+  const [DynamicRemote, setDynamicRemote] = useState<FunctionComponent>();
+  const remotes = [
+    {
+      name: "dyn",
+      url: "http://localhost:4202/assets/remoteEntry.js",
+      component: "./DynamicApp",
+    },
+    {
+      name: "reg",
+      url: "http://localhost:4202/assets/remoteEntry.js",
+      component: "./RegularApp",
+    },
+  ];
+  useEffect(() => {
+    // __federation_method_setRemote("dyn", {
+    __federation_method_setRemote("reg", {
+      url: () => Promise.resolve("http://localhost:4202/assets/remoteEntry.js"),
+      format: "esm",
+      from: "vite",
+    });
 
-  // // Get the remote module "./DynamicApp"
-  // __federation_method_getRemote("dyn", "./DynamicApp")
-  //   .then((moduleWrapped) => __federation_method_unwrapDefault(moduleWrapped))
-  //   .then((module) => {
-  //     console.log(module);
-  //     console.log(typeof module);
-  //     return module;
-  //     //   setDynamicModule(module);
-  //   });
-  return (
-    <>
-      <h1>Vite + React</h1>
-      <div className="card">
+    // Get the remote module "./DynamicApp"
+    // __federation_method_getRemote("dyn", "./DynamicApp")
+    __federation_method_getRemote("reg", "./RegularApp")
+      .then((moduleWrapped) => __federation_method_unwrapDefault(moduleWrapped))
+      .then((module) => {
+        console.log(module);
+        console.log(typeof module);
+        setDynamicRemote(() => module); // the lambda is important
+      });
+  }, []);
+
+  if (DynamicRemote) {
+    return (
+      <>
+        <h1>Test dynamic remotes</h1>
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMRs
-        </p>
-        {/* <Suspense fallback={"loading"}>
-          <DynWrapper />
-        </Suspense> */}
         <Suspense>
-          {__federation_method_getRemote("dyn", "./DynamicApp")
-            .then((moduleWrapped) => {
-              console.log(moduleWrapped);
-              console.log(typeof moduleWrapped);
-              __federation_method_unwrapDefault(moduleWrapped);
-            })
-            .then((module) => {
-              console.log(module);
-              console.log(typeof module);
-              return module;
-              //   setDynamicModule(module);
-            })}
+          <DynamicRemote />
         </Suspense>
-
         {/* <Suspense>
-          <DynApp />
+          <RegApp />
         </Suspense> */}
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      {/* <Suspense>
-        <RegApp />
-      </Suspense> */}
-    </>
-  );
+      </>
+    );
+  } else {
+    return <h1>Loading...</h1>;
+  }
 }
-
 export default App;
