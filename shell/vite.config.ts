@@ -12,6 +12,8 @@ export default defineConfig({
         // dyn: "http://localhost:4201/assets/remoteEntry.js",
         // reg: "http://localhost:4202/assets/remoteEntry.js",
         // dyn: "",
+        dyn: "",
+        reg: "",
       },
       shared: ["react", "react-dom"],
     }),

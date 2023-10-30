@@ -24,8 +24,8 @@ function App() {
     //   },
     // ];
 
-    async function mockFetchRemotes() {
-      return new Promise<Array<any>>((resolve, reject) => {
+    function mockFetchRemotes() {
+      return new Promise<Array<any>>((resolve) => {
         // Simulate a delay to mimic an API call
         setTimeout(() => {
           const mockData = [
@@ -60,16 +60,20 @@ function App() {
         );
         const module = await __federation_method_unwrapDefault(moduleWrapped);
         if (!dynamicRemotes.includes(module)) {
-          setDynamicRemotes((prevRemotes) => [...prevRemotes, module]);
+          setDynamicRemotes((prevRemotes) => {
+            console.log(prevRemotes);
+            return [...prevRemotes, module];
+          });
         }
         // setLoading(false);
       }
     };
 
     loadRemotes();
-    // console.log(dynamicRemotes);
+    console.log(dynamicRemotes);
   }, []);
 
+  // return <h1>hello world!</h1>;
   if (dynamicRemotes.length > 0) {
     return (
       <>
