@@ -1,67 +1,91 @@
-import React from "react";
-import { FunctionComponent, Suspense, useEffect, useState } from "react";
-// import DynWrapper from "./DynWrapper";
+import { useEffect, useState } from "react";
 
 import {
   __federation_method_setRemote,
   __federation_method_getRemote,
-  __federation_method_unwrapDefault,
+  __federation_method_unwrapDefault, //@ts-expect-error
 } from "virtual:__federation__";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [dynamicRemotes, setDynamicRemotes] = useState<any[]>([]);
+  // const [loading, setLoading] = useState(true);
 
-  // const DynApp = React.lazy(() => import("dyn/DynamicApp"));
-  // const RegApp = React.lazy(() => import("reg/RegularApp"));
-  const [DynamicRemote, setDynamicRemote] = useState<FunctionComponent>();
-  const remotes = [
-    {
-      name: "dyn",
-      url: "http://localhost:4202/assets/remoteEntry.js",
-      component: "./DynamicApp",
-    },
-    {
-      name: "reg",
-      url: "http://localhost:4202/assets/remoteEntry.js",
-      component: "./RegularApp",
-    },
-  ];
   useEffect(() => {
-    // __federation_method_setRemote("dyn", {
-    __federation_method_setRemote("reg", {
-      url: () => Promise.resolve("http://localhost:4202/assets/remoteEntry.js"),
-      format: "esm",
-      from: "vite",
-    });
+    // const remotes = [
+    //   {
+    //     name: "dyn",
+    //     url: "http://localhost:4201/assets/remoteEntry.js",
+    //     component: "./DynamicApp",
+    //   },
+    //   {
+    //     name: "reg",
+    //     url: "http://localhost:4202/assets/remoteEntry.js",
+    //     component: "./RegularApp",
+    //   },
+    // ];
 
-    // Get the remote module "./DynamicApp"
-    // __federation_method_getRemote("dyn", "./DynamicApp")
-    __federation_method_getRemote("reg", "./RegularApp")
-      .then((moduleWrapped) => __federation_method_unwrapDefault(moduleWrapped))
-      .then((module) => {
-        console.log(module);
-        console.log(typeof module);
-        setDynamicRemote(() => module); // the lambda is important
+    async function mockFetchRemotes() {
+      return new Promise<Array<any>>((resolve, reject) => {
+        // Simulate a delay to mimic an API call
+        setTimeout(() => {
+          const mockData = [
+            {
+              name: "dyn",
+              url: "http://localhost:4201/assets/remoteEntry.js",
+              component: "./DynamicApp",
+            },
+            {
+              name: "reg",
+              url: "http://localhost:4202/assets/remoteEntry.js",
+              component: "./RegularApp",
+            },
+          ];
+          resolve(mockData);
+        }, 1000); // Simulating a 1-second delay
       });
+    }
+
+    const loadRemotes = async () => {
+      const remotes = mockFetchRemotes();
+      for (const remote of await remotes) {
+        __federation_method_setRemote(remote.name, {
+          url: () => Promise.resolve(remote.url),
+          format: "esm",
+          from: "vite",
+        });
+
+        const moduleWrapped = await __federation_method_getRemote(
+          remote.name,
+          remote.component
+        );
+        const module = await __federation_method_unwrapDefault(moduleWrapped);
+        if (!dynamicRemotes.includes(module)) {
+          setDynamicRemotes((prevRemotes) => [...prevRemotes, module]);
+        }
+        // setLoading(false);
+      }
+    };
+
+    loadRemotes();
+    // console.log(dynamicRemotes);
   }, []);
 
-  if (DynamicRemote) {
+  if (dynamicRemotes.length > 0) {
     return (
       <>
         <h1>Test dynamic remotes</h1>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <Suspense>
-          <DynamicRemote />
-        </Suspense>
-        {/* <Suspense>
-          <RegApp />
-        </Suspense> */}
+        {dynamicRemotes.map((Remote, index) => {
+          return (
+            <div key={index}>
+              <Remote />
+            </div>
+          );
+        })}
       </>
     );
   } else {
     return <h1>Loading...</h1>;
   }
 }
+
 export default App;
