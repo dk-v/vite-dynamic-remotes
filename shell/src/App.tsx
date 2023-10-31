@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 import {
@@ -24,29 +25,36 @@ function App() {
     //   },
     // ];
 
-    function mockFetchRemotes() {
-      return new Promise<Array<any>>((resolve) => {
-        // Simulate a delay to mimic an API call
-        setTimeout(() => {
-          const mockData = [
-            {
-              name: "dyn",
-              url: "http://localhost:4201/assets/remoteEntry.js",
-              component: "./DynamicApp",
-            },
-            {
-              name: "reg",
-              url: "http://localhost:4202/assets/remoteEntry.js",
-              component: "./RegularApp",
-            },
-          ];
-          resolve(mockData);
-        }, 1000); // Simulating a 1-second delay
-      });
-    }
+    // function mockFetchRemotes() {
+    //   return new Promise<Array<any>>((resolve) => {
+    //     // Simulate a delay to mimic an API call
+    //     setTimeout(() => {
+    //       const mockData = [
+    //         {
+    //           name: "dyn",
+    //           url: "http://localhost:4201/assets/remoteEntry.js",
+    //           component: "./DynamicApp",
+    //         },
+    //         {
+    //           name: "reg",
+    //           url: "http://localhost:4202/assets/remoteEntry.js",
+    //           component: "./RegularApp",
+    //         },
+    //       ];
+    //       resolve(mockData);
+    //     }, 5000); // Simulating a 1-second delay
+    //   });
+    // }
+
+    const fetchRemotes = async () => {
+      const remotes = await axios.get("http://localhost:7276/api/config");
+      return remotes.data;
+    };
 
     const loadRemotes = async () => {
-      const remotes = mockFetchRemotes();
+      // const remotes = mockFetchRemotes();
+      const remotes = fetchRemotes();
+      const tempRemotes = [];
       for (const remote of await remotes) {
         __federation_method_setRemote(remote.name, {
           url: () => Promise.resolve(remote.url),
@@ -59,18 +67,14 @@ function App() {
           remote.component
         );
         const module = await __federation_method_unwrapDefault(moduleWrapped);
-        if (!dynamicRemotes.includes(module)) {
-          setDynamicRemotes((prevRemotes) => {
-            console.log(prevRemotes);
-            return [...prevRemotes, module];
-          });
-        }
-        // setLoading(false);
+        tempRemotes.push(module);
+        // setDynamicRemotes((prevRemotes) => [...prevRemotes, module]);
       }
+      setDynamicRemotes(tempRemotes); // call setDynamicRemotes only once
     };
 
     loadRemotes();
-    console.log(dynamicRemotes);
+    // console.log(dynamicRemotes);
   }, []);
 
   // return <h1>hello world!</h1>;
