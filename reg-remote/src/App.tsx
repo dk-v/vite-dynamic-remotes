@@ -5,7 +5,7 @@ function App() {
 
   return (
     <button onClick={() => setCount(() => count + 1)}>
-      Regular remote {count} swag
+      Regular remote {count}
     </button>
   );
 }
