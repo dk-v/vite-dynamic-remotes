@@ -20,3 +20,7 @@ The shell fetches remote definitions from `http://localhost:7276/api/config` and
 3. Start the shell.
 
 See the README in each package directory for the local scripts and remote-specific details.
+
+## Documentation
+
+- [`documentiation/ARCHITECTURE.md`](./documentiation/ARCHITECTURE.md) — architecture overview intended for the project wiki.
