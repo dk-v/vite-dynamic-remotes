@@ -24,6 +24,10 @@ tools:
     lockdown: false
     min-integrity: none # This workflow is allowed to examine and comment on any issues
 
+engine:
+  id: copilot
+  model: gpt-5-mini
+
 safe-outputs:
   mentions: false
   allowed-github-references: []
