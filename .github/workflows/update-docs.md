@@ -7,8 +7,8 @@ description: |
   updates. Supports documentation-as-code philosophy.
 
 on:
-  push:
-    branches: [main]
+  #  push:
+  #    branches: [main]
   workflow_dispatch:
 
 permissions: read-all
