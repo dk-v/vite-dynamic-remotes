@@ -1,27 +1,34 @@
-# React + TypeScript + Vite
+# Dynamic remote
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+`dyn-remote` is a federated React remote exposed to the shell host. It runs on port `4201` and publishes `./DynamicApp` from `src/App.tsx`.
 
-Currently, two official plugins are available:
+## What it renders
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The remote currently exports a single counter button:
 
-## Expanding the ESLint configuration
+- Clicking the button increments the count locally in the remote
+- The shell loads this remote entry dynamically at runtime
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Module Federation config
 
-- Configure the top-level `parserOptions` property like this:
+- Remote name: `dyn`
+- Exposed module: `./DynamicApp`
+- Remote entry: `http://localhost:4201/assets/remoteEntry.js`
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+## Development
+
+```bash
+pnpm install
+pnpm dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Other useful scripts:
+
+- `pnpm build` — type-check and build the remote
+- `pnpm lint` — run ESLint
+- `pnpm preview` — preview the production build on port `4201`
+
+## Notes
+
+- This package shares `react` and `react-dom` with the host.
+- Keep the exposed module name stable unless the shell config is updated as well.

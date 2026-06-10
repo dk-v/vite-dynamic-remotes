@@ -1,27 +1,47 @@
-# React + TypeScript + Vite
+# Shell host
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The `shell` app is the host for the federated remotes in this repository. It starts on port `4200` and loads remote definitions from `http://localhost:7276/api/config` at runtime.
 
-Currently, two official plugins are available:
+## What it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Fetches a list of remotes from the config API
+- Registers each remote with Vite Module Federation
+- Loads the exposed component from every remote and renders them in the shell
 
-## Expanding the ESLint configuration
+## Runtime contract
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Each config item returned by the API must provide:
 
-- Configure the top-level `parserOptions` property like this:
+- `name`: the federation remote name
+- `url`: the remote entry URL
+- `component`: the exposed module path
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+Example shape:
+
+```ts
+[
+  {
+    name: "dyn",
+    url: "http://localhost:4201/assets/remoteEntry.js",
+    component: "./DynamicApp",
+  },
+]
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Development
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Other useful scripts:
+
+- `pnpm build` — type-check and build the app
+- `pnpm lint` — run ESLint
+- `pnpm preview` — preview the production build
+
+## Notes
+
+- The shell expects the config API to be available before remote components can load.
+- The federation placeholder in `vite.config.ts` is replaced at runtime by the fetched remote definitions.
