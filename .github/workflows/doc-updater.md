@@ -2,7 +2,7 @@
 name: Documentation Updater
 description: Automatically reviews and updates documentation based on recent code changes
 on:
-  schedule: daily
+  # schedule: daily
   workflow_dispatch:
   permissions:
     pull-requests: read
@@ -19,12 +19,12 @@ if: needs.pre_activation.outputs.check_result == 'success'
 
 network:
   allowed:
-  - defaults
-  - dotnet
-  - node
-  - python
-  - rust
-  - java
+    - defaults
+    - dotnet
+    - node
+    - python
+    - rust
+    - java
 
 permissions:
   contents: read
@@ -65,6 +65,7 @@ Scan the repository for merged pull requests and code changes from the last 24 h
 First, search for merged pull requests from the last 24 hours.
 
 Use the GitHub tools to:
+
 - Calculate yesterday's date: `date -u -d "1 day ago" +%Y-%m-%d`
 - Search for pull requests merged in the last 24 hours using `search_pull_requests` with a query like: `repo:${{ github.repository }} is:pr is:merged merged:>=YYYY-MM-DD` (replace YYYY-MM-DD with yesterday's date)
 - Get details of each merged PR using `pull_request_read`
@@ -85,6 +86,7 @@ Create a summary of changes that should be documented.
 ### 3. Identify Documentation Location
 
 Determine where documentation is located in this repository:
+
 - Check for `docs/` directory
 - Check for `README.md` files
 - Check for `*.md` files in root or subdirectories
@@ -144,6 +146,7 @@ If you made any documentation changes:
 **PR Title Format**: `[docs] Update documentation for features from [date]`
 
 **PR Description Template**:
+
 ```markdown
 ## Documentation Updates - [Date]
 
