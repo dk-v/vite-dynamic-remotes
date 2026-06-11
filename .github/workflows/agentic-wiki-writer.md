@@ -43,7 +43,7 @@ tools:
   repo-memory:
     branch-name: memory/agentic-wiki
     description: "Source file mappings, content hashes, and file summaries for incremental wiki regeneration"
-    allowed-extensions: [".json", ".md"]
+    allowed-extensions: [".json", ".md", ".ts", ".tsx"]
     max-file-size: 1048576
     max-file-count: 50
   github:
