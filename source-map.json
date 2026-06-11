@@ -1,0 +1,94 @@
+{
+  "Home": {
+    "sourceFiles": [
+      { "path": "shell/src/App.tsx", "hash": "bytes:2774" },
+      { "path": "shell/vite.config.ts", "hash": "bytes:696" },
+      { "path": "dyn-remote/src/App.tsx", "hash": "bytes:258" },
+      { "path": "dyn-remote/vite.config.ts", "hash": "bytes:554" },
+      { "path": "reg-remote/src/App.tsx", "hash": "bytes:231" },
+      { "path": "reg-remote/vite.config.ts", "hash": "bytes:554" },
+      { "path": "test-remote/src/App.tsx", "hash": "bytes:228" },
+      { "path": "test-remote/vite.config.ts", "hash": "bytes:552" }
+    ],
+    "templateHash": "template-v1:Home",
+    "generatedAt": "2026-06-11T09:24:07Z"
+  },
+  "Architecture": {
+    "sourceFiles": [
+      { "path": "shell/src/App.tsx", "hash": "bytes:2774" },
+      { "path": "shell/vite.config.ts", "hash": "bytes:696" },
+      { "path": "dyn-remote/vite.config.ts", "hash": "bytes:554" },
+      { "path": "reg-remote/vite.config.ts", "hash": "bytes:554" },
+      { "path": "test-remote/vite.config.ts", "hash": "bytes:552" }
+    ],
+    "templateHash": "template-v1:Architecture",
+    "generatedAt": "2026-06-11T09:24:07Z"
+  },
+  "Shell": {
+    "sourceFiles": [
+      { "path": "shell/src/App.tsx", "hash": "bytes:2774" },
+      { "path": "shell/vite.config.ts", "hash": "bytes:696" }
+    ],
+    "templateHash": "template-v1:Shell",
+    "generatedAt": "2026-06-11T09:24:07Z"
+  },
+  "Dynamic-Remote": {
+    "sourceFiles": [
+      { "path": "dyn-remote/src/App.tsx", "hash": "bytes:258" },
+      { "path": "dyn-remote/vite.config.ts", "hash": "bytes:554" }
+    ],
+    "templateHash": "template-v1:Dynamic-Remote",
+    "generatedAt": "2026-06-11T09:24:07Z"
+  },
+  "Regular-Remote": {
+    "sourceFiles": [
+      { "path": "reg-remote/src/App.tsx", "hash": "bytes:231" },
+      { "path": "reg-remote/vite.config.ts", "hash": "bytes:554" }
+    ],
+    "templateHash": "template-v1:Regular-Remote",
+    "generatedAt": "2026-06-11T09:24:07Z"
+  },
+  "Test-Remote": {
+    "sourceFiles": [
+      { "path": "test-remote/src/App.tsx", "hash": "bytes:228" },
+      { "path": "test-remote/vite.config.ts", "hash": "bytes:552" }
+    ],
+    "templateHash": "template-v1:Test-Remote",
+    "generatedAt": "2026-06-11T09:24:07Z"
+  },
+  "Getting-Started": {
+    "sourceFiles": [
+      { "path": "shell/package.json", "hash": "bytes:812" },
+      { "path": "dyn-remote/package.json", "hash": "bytes:806" },
+      { "path": "reg-remote/package.json", "hash": "bytes:806" },
+      { "path": "test-remote/package.json", "hash": "bytes:806" },
+      { "path": "shell/vite.config.ts", "hash": "bytes:696" },
+      { "path": "dyn-remote/vite.config.ts", "hash": "bytes:554" },
+      { "path": "reg-remote/vite.config.ts", "hash": "bytes:554" },
+      { "path": "test-remote/vite.config.ts", "hash": "bytes:552" }
+    ],
+    "templateHash": "template-v1:Getting-Started",
+    "generatedAt": "2026-06-11T09:24:07Z"
+  },
+  "For-Agents": {
+    "sourceFiles": [
+      { "path": ".github/agentic-wiki/PAGES.md", "hash": "bytes:6124" }
+    ],
+    "templateHash": "template-v1:For-Agents",
+    "generatedAt": "2026-06-11T09:24:07Z"
+  },
+  "AGENTSmd": {
+    "sourceFiles": [
+      { "path": ".github/agentic-wiki/PAGES.md", "hash": "bytes:6124" }
+    ],
+    "templateHash": "template-v1:AGENTSmd",
+    "generatedAt": "2026-06-11T09:24:07Z"
+  },
+  "llmstxt": {
+    "sourceFiles": [
+      { "path": ".github/agentic-wiki/PAGES.md", "hash": "bytes:6124" }
+    ],
+    "templateHash": "template-v1:llmstxt",
+    "generatedAt": "2026-06-11T09:24:07Z"
+  }
+}

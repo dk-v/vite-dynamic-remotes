@@ -1,0 +1,76 @@
+{
+  "pages": [
+    {
+      "title": "Home",
+      "slug": "Home",
+      "sections": [
+        { "title": "Project Layout", "slug": "Project-Layout", "sidebar": true },
+        { "title": "Quick Links", "slug": "Quick-Links", "sidebar": true }
+      ],
+      "children": []
+    },
+    {
+      "title": "Architecture",
+      "slug": "Architecture",
+      "sections": [
+        { "title": "Federation Flow", "slug": "Federation-Flow", "sidebar": true },
+        { "title": "Port Map", "slug": "Port-Map", "sidebar": true }
+      ],
+      "children": [
+        {
+          "title": "Shell",
+          "slug": "Shell",
+          "sections": [
+            { "title": "Remote Loading", "slug": "Remote-Loading", "sidebar": true },
+            { "title": "Runtime Behavior", "slug": "Runtime-Behavior", "sidebar": true }
+          ],
+          "children": []
+        },
+        {
+          "title": "Dynamic Remote",
+          "slug": "Dynamic-Remote",
+          "sections": [
+            { "title": "Exports", "slug": "Exports", "sidebar": true }
+          ],
+          "children": []
+        },
+        {
+          "title": "Regular Remote",
+          "slug": "Regular-Remote",
+          "sections": [
+            { "title": "Exports", "slug": "Exports", "sidebar": true }
+          ],
+          "children": []
+        },
+        {
+          "title": "Test Remote",
+          "slug": "Test-Remote",
+          "sections": [
+            { "title": "Exports", "slug": "Exports", "sidebar": true }
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "title": "Getting Started",
+      "slug": "Getting-Started",
+      "sections": [
+        { "title": "Prerequisites", "slug": "Prerequisites", "sidebar": true },
+        { "title": "Installation", "slug": "Installation", "sidebar": true },
+        { "title": "Running the apps", "slug": "Running-the-apps", "sidebar": true },
+        { "title": "Configuration", "slug": "Configuration", "sidebar": true }
+      ],
+      "children": []
+    },
+    {
+      "title": "For Agents",
+      "slug": "For-Agents",
+      "sections": [],
+      "children": [
+        { "title": "AGENTS.md", "slug": "AGENTSmd", "sections": [], "children": [] },
+        { "title": "llms.txt", "slug": "llmstxt", "sections": [], "children": [] }
+      ]
+    }
+  ]
+}
