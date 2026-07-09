@@ -20,6 +20,7 @@ permissions:
 
 engine:
   id: copilot
+  model: auto
 steps:
   - name: Pre-stage event payload for sandbox
     run: |
@@ -70,7 +71,7 @@ safe-outputs:
           type: string
       steps:
         - name: Checkout wiki
-          uses: actions/checkout@v4
+          uses: actions/checkout@v7.0.0
           with:
             repository: ${{ github.repository }}.wiki
             token: ${{ secrets.GITHUB_TOKEN }}
