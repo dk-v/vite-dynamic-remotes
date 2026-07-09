@@ -20,7 +20,6 @@ permissions:
 
 engine:
   id: copilot
-  model: gpt-5-mini
 
 steps:
   - name: Pre-stage event payload for sandbox
