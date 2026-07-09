@@ -20,8 +20,6 @@ permissions:
 
 engine:
   id: copilot
-  model: auto
-
 steps:
   - name: Pre-stage event payload for sandbox
     run: |
